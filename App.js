@@ -1,20 +1,43 @@
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { PaperProvider, MD3LightTheme } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import ContactListScreen from './src/screens/ContactListScreen';
+import ContactDetailScreen from './src/screens/ContactDetailScreen';
+import ContactFormScreen from './src/screens/ContactFormScreen';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <PaperProvider theme={MD3LightTheme}>
       <StatusBar style="auto" />
-    </View>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="ContactList"
+          screenOptions={{
+            headerStyle: { backgroundColor: '#6200ee' },
+            headerTintColor: '#fff',
+            headerTitleStyle: { fontWeight: 'bold' },
+          }}
+        >
+          <Stack.Screen
+            name="ContactList"
+            component={ContactListScreen}
+            options={{ title: 'Danh Bạ' }}
+          />
+          <Stack.Screen
+            name="ContactDetail"
+            component={ContactDetailScreen}
+            options={{ title: 'Chi Tiết Liên Hệ' }}
+          />
+          <Stack.Screen
+            name="ContactForm"
+            component={ContactFormScreen}
+            options={{ title: 'Thêm Liên Hệ' }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </PaperProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
